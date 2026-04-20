@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
+import SceneLoader from './SceneLoader';
 
 interface PanoFrameProps {
   src: string;
@@ -34,15 +34,12 @@ export default function PanoFrame({ src, isActive, preload = false }: PanoFrameP
       <AnimatePresence>
         {hasMounted && !isLoaded && (
           <motion.div
-            className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white"
+            className="absolute inset-0 z-20"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: 'easeInOut' }}
           >
-            <Loader2 className="w-6 h-6 text-black/30 animate-spin mb-6" />
-            <span className="text-[9px] font-sans tracking-[0.3em] uppercase text-black/30">
-              Loading Scene
-            </span>
+            <SceneLoader />
           </motion.div>
         )}
       </AnimatePresence>
