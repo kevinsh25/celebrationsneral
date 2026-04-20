@@ -48,15 +48,15 @@ export default function Loader({ onComplete }: LoaderProps) {
         style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}>
       </div>
 
-      {/* Subtle deep background glow matching logo colors */}
+      {/* Subtle deep background glow matching new monochromatic theme */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <motion.div
-          className="w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-[#008DD2]/[0.03] rounded-full blur-[120px]"
+          className="w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-black/[0.03] rounded-full blur-[120px]"
           animate={{ scale: [0.9, 1.1, 0.9], opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] bg-[#D4AF37]/[0.03] rounded-full blur-[100px] translate-y-10"
+          className="absolute w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] bg-gray-500/[0.02] rounded-full blur-[100px] translate-y-10"
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.8, 0.3] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         />
@@ -73,14 +73,14 @@ export default function Loader({ onComplete }: LoaderProps) {
           <img
             src="/logo.png"
             alt="Celebrations Neral Logo"
-            className="w-full h-full object-contain drop-shadow-lg"
+            className="w-full h-full object-contain drop-shadow-sm"
           />
         </div>
 
         <div className="flex flex-col items-center gap-6">
           <div className="w-64 md:w-80 h-[2px] bg-black/5 relative overflow-hidden rounded-full">
             <motion.div
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#D4AF37] to-[#008DD2]"
+              className="absolute top-0 left-0 h-full bg-gradient-to-r from-gray-400 via-gray-600 to-black"
               initial={{ x: '-100%' }}
               animate={{ x: `${progress - 100}%` }}
               transition={{ duration: 0.1, ease: 'linear' }}
@@ -88,7 +88,7 @@ export default function Loader({ onComplete }: LoaderProps) {
             />
           </div>
           <motion.p
-            className="text-[9px] md:text-[10px] font-sans tracking-[0.3em] text-[#008DD2]/60 uppercase font-medium"
+            className="text-[9px] md:text-[10px] font-sans tracking-[0.3em] text-black/50 uppercase font-medium"
             animate={{ opacity: progress > 80 ? 0 : 1 }}
             transition={{ duration: 0.5 }}
           >

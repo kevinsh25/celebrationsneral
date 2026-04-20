@@ -93,7 +93,7 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
                       className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-black/5 transition-colors text-left group"
                     >
                       <div className="flex items-center justify-center w-8 h-8 rounded-full bg-black/5 group-hover:bg-white transition-colors">
-                        <Icon className="w-4 h-4 text-black/60 group-hover:text-[#008DD2]" />
+                        <Icon className="w-4 h-4 text-black/60 group-hover:text-black" />
                       </div>
                       <span className="text-xs font-medium tracking-wide text-black/70 group-hover:text-black uppercase">
                         {option.label}
@@ -127,13 +127,13 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
                   strokeWidth={1.5}
                   className={cn(
                     "w-4 h-4 sm:w-[18px] sm:h-[18px] relative z-10 transition-all duration-500",
-                    (isActive || isMoreActive) ? "text-[#008DD2] drop-shadow-[0_0_8px_rgba(0,141,210,0.4)]" : "text-black/40 group-hover:text-black/70"
+                    (isActive || isMoreActive) ? "text-black drop-shadow-[0_0_8px_rgba(0,0,0,0.2)]" : "text-black/40 group-hover:text-black/70"
                   )}
                 />
                 <span
                   className={cn(
                     "text-[9px] sm:text-[10px] font-sans tracking-[0.15em] uppercase relative z-10 transition-all duration-500",
-                    (isActive || isMoreActive) ? "text-[#008DD2] drop-shadow-[0_0_8px_rgba(0,141,210,0.4)] font-medium" : "text-black/40 group-hover:text-black/70"
+                    (isActive || isMoreActive) ? "text-black drop-shadow-[0_0_8px_rgba(0,0,0,0.2)] font-medium" : "text-black/40 group-hover:text-black/70"
                   )}
                 >
                   {tab.label}
