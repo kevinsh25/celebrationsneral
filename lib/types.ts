@@ -1,6 +1,7 @@
 import { ElementType } from 'react';
 
-export type TabId = 'overview' | 'amenities' | 'viewfrommyplot' | 'virtual-tour';
+export type TabId = 'overview' | 'viewfrommyplot' | 'virtual-tour';
+export type ActionId = 'location-av' | 'product-av';
 
 export interface SceneConfig {
   id: TabId;
@@ -10,7 +11,7 @@ export interface SceneConfig {
 }
 
 export interface NavTab {
-  id: TabId;
+  id: TabId | ActionId;
   label: string;
   icon: ElementType;
 }
