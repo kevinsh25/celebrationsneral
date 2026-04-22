@@ -31,6 +31,6 @@ export const NAV_TABS: NavTab[] = [
 ];
 
 export const VIDEO_URLS: Record<string, string> = {
-  'location-av': 'https://www.youtube.com/embed/MbeBBPHfxn4',
-  'product-av': 'https://www.youtube.com/embed/1zhYYLOgSSk',
+  'location-av': '#',
+  'product-av': '#',
 };
