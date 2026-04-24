@@ -5,7 +5,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { TabId } from '@/lib/types';
 import { NAV_TABS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
-import { Play, Film, X } from 'lucide-react';
+import { Play, Film, X, Image as ImageIcon } from 'lucide-react';
+import GalleryModal from './GalleryModal';
 
 interface BottomNavProps {
   activeTab: TabId;
@@ -15,10 +16,14 @@ interface BottomNavProps {
 export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState<{ title: string; url: string } | null>(null);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
   const handleTabClick = (tabId: TabId) => {
     if (tabId === 'amenities') {
       setIsMoreMenuOpen(!isMoreMenuOpen);
+    } else if (tabId === 'gallery') {
+      setIsGalleryOpen(true);
+      setIsMoreMenuOpen(false);
     } else {
       setIsMoreMenuOpen(false);
       onTabChange(tabId);
@@ -26,12 +31,17 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   };
 
   const moreOptions = [
-    { id: 'location-av', label: 'Location AV', icon: Film, url: 'https://youtu.be/6j33K-R4O9I?si=L0Yd7C5sB-sHk541' },
-    { id: 'product-av', label: 'Product Walkthrough AV', icon: Play, url: 'https://youtu.be/O5qSj9M832s?si=yO2U_tK1zF40g1Wp' },
+    { id: 'location-av', label: 'Location AV', icon: Film, type: 'video', url: 'https://youtu.be/6j33K-R4O9I?si=L0Yd7C5sB-sHk541' },
+    { id: 'product-av', label: 'Product Walkthrough AV', icon: Play, type: 'video', url: 'https://youtu.be/O5qSj9M832s?si=yO2U_tK1zF40g1Wp' },
   ];
 
   return (
     <>
+      {/* Gallery Modal */}
+      <AnimatePresence>
+        {isGalleryOpen && <GalleryModal onClose={() => setIsGalleryOpen(false)} />}
+      </AnimatePresence>
+
       {/* Video Modal */}
       <AnimatePresence>
         {activeVideo && (
@@ -39,7 +49,7 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-8"
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-8"
             onClick={() => setActiveVideo(null)}
           >
             <div
@@ -87,7 +97,9 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
                     <button
                       key={option.id}
                       onClick={() => {
-                        setActiveVideo({ title: option.label, url: option.url });
+                        if (option.type === 'video' && option.url) {
+                          setActiveVideo({ title: option.label, url: option.url });
+                        }
                         setIsMoreMenuOpen(false);
                       }}
                       className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-black/5 transition-colors text-left group"
@@ -105,9 +117,12 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
             )}
           </AnimatePresence>
           {NAV_TABS.map((tab) => {
-            const isActive = activeTab === tab.id && tab.id !== 'amenities';
+            const isActive = activeTab === tab.id && tab.id !== 'amenities' && tab.id !== 'gallery';
             const isMoreActive = tab.id === 'amenities' && isMoreMenuOpen;
+            const isGalleryActive = tab.id === 'gallery' && isGalleryOpen;
             const Icon = tab.icon;
+
+            const isVisualActive = isActive || isMoreActive || isGalleryActive;
 
             return (
               <button
@@ -115,7 +130,7 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
                 onClick={() => handleTabClick(tab.id)}
                 className="relative flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2.5 px-4 sm:px-6 py-3 sm:py-3.5 rounded-full transition-colors duration-500 group"
               >
-                {(isActive || isMoreActive) && (
+                {isVisualActive && (
                   <motion.div
                     layoutId="activeTab"
                     className="absolute inset-0 bg-black/5 rounded-full shadow-[inset_0_1px_0_0_rgba(0,0,0,0.05)]"
@@ -127,13 +142,13 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
                   strokeWidth={1.5}
                   className={cn(
                     "w-4 h-4 sm:w-[18px] sm:h-[18px] relative z-10 transition-all duration-500",
-                    (isActive || isMoreActive) ? "text-black drop-shadow-[0_0_8px_rgba(0,0,0,0.2)]" : "text-black/40 group-hover:text-black/70"
+                    isVisualActive ? "text-black drop-shadow-[0_0_8px_rgba(0,0,0,0.2)]" : "text-black/40 group-hover:text-black/70"
                   )}
                 />
                 <span
                   className={cn(
                     "text-[9px] sm:text-[10px] font-sans tracking-[0.15em] uppercase relative z-10 transition-all duration-500",
-                    (isActive || isMoreActive) ? "text-black drop-shadow-[0_0_8px_rgba(0,0,0,0.2)] font-medium" : "text-black/40 group-hover:text-black/70"
+                    isVisualActive ? "text-black drop-shadow-[0_0_8px_rgba(0,0,0,0.2)] font-medium" : "text-black/40 group-hover:text-black/70"
                   )}
                 >
                   {tab.label}

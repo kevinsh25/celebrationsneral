@@ -1,4 +1,19 @@
-# https://developers.cloudflare.com/workers/static-assets/headers
-# https://opennext.js.org/cloudflare/caching#static-assets-caching
+# Next.js static bundle — immutable forever (content-hashed filenames)
 /_next/static/*
   Cache-Control: public,max-age=31536000,immutable
+
+# Pano tiles — immutable for 7 days (re-deploy invalidates cache automatically)
+/panos/*
+  Cache-Control: public,max-age=604800,immutable
+
+# Gallery images — immutable for 30 days
+/gallery/*
+  Cache-Control: public,max-age=2592000,immutable
+
+# Hero / menu images — immutable for 30 days
+/clubhouse.jpg
+  Cache-Control: public,max-age=2592000,immutable
+/riverhuts.jpg
+  Cache-Control: public,max-age=2592000,immutable
+/logo.png
+  Cache-Control: public,max-age=2592000,immutable
