@@ -9,7 +9,7 @@ import ThemeToggle from './ThemeToggle';
 import VirtualTourMenu from './VirtualTourMenu';
 import { ArrowLeft } from 'lucide-react';
 import { TabId } from '@/lib/types';
-import { SCENES } from '@/lib/constants';
+import { SCENES, ASSET_BASE_URL } from '@/lib/constants';
 
 export default function AppShell() {
   const [activeTab, setActiveTab] = useState<TabId>('overview');
@@ -45,11 +45,11 @@ export default function AppShell() {
 
       {/* Virtual Tour Panos */}
       <PanoFrame
-        src="/panos/virtualtour/index.html"
+        src={`${ASSET_BASE_URL}/panos/virtualtour/index.html`}
         isActive={activeTab === 'virtual-tour' && activeVirtualTour === 'clubhouse'}
       />
       <PanoFrame
-        src="/panos/riverhuts/index.html"
+        src={`${ASSET_BASE_URL}/panos/riverhuts/index.html`}
         isActive={activeTab === 'virtual-tour' && activeVirtualTour === 'riverhuts'}
       />
 

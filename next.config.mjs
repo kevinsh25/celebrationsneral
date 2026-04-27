@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  assetPrefix: process.env.NODE_ENV === 'production' ? process.env.NEXT_PUBLIC_ASSET_BASE_URL : undefined,
   reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,

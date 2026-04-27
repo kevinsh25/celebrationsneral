@@ -5,36 +5,38 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
+import { ASSET_BASE_URL } from '@/lib/constants';
+
 interface GalleryModalProps {
   onClose: () => void;
 }
 
 // Actual gallery images (converted to WebP for ~55% smaller file sizes)
 const GALLERY_IMAGES = [
-  '/gallery/clubhouse-01.webp',
-  '/gallery/clubhouse-03.webp',
-  '/gallery/clubhouse-06.webp',
-  '/gallery/clubhouse-second01.webp',
-  '/gallery/entance-gate.webp',
-  '/gallery/CHDining01.webp',
-  '/gallery/CHDining02.webp',
-  '/gallery/CHDining03.webp',
-  '/gallery/CHDining04.webp',
-  '/gallery/CHDining05.webp',
-  '/gallery/CHDining06.webp',
-  '/gallery/Dining01.webp',
-  '/gallery/Dining02.webp',
-  '/gallery/Dining03.webp',
-  '/gallery/Gym01.webp',
-  '/gallery/Gym02.webp',
-  '/gallery/RHBathroom01.webp',
-  '/gallery/RHBathroom02.webp',
-  '/gallery/Riverhuts.webp',
-  '/gallery/RiverhutsBR.webp',
-  '/gallery/RiverhutsBR01.webp',
-  '/gallery/RiverhutsBR02.webp',
-  '/gallery/SPA.webp',
-  '/gallery/Sauna.webp',
+  `${ASSET_BASE_URL}/gallery/clubhouse-01.webp`,
+  `${ASSET_BASE_URL}/gallery/clubhouse-03.webp`,
+  `${ASSET_BASE_URL}/gallery/clubhouse-06.webp`,
+  `${ASSET_BASE_URL}/gallery/clubhouse-second01.webp`,
+  `${ASSET_BASE_URL}/gallery/entance-gate.webp`,
+  `${ASSET_BASE_URL}/gallery/CHDining01.webp`,
+  `${ASSET_BASE_URL}/gallery/CHDining02.webp`,
+  `${ASSET_BASE_URL}/gallery/CHDining03.webp`,
+  `${ASSET_BASE_URL}/gallery/CHDining04.webp`,
+  `${ASSET_BASE_URL}/gallery/CHDining05.webp`,
+  `${ASSET_BASE_URL}/gallery/CHDining06.webp`,
+  `${ASSET_BASE_URL}/gallery/Dining01.webp`,
+  `${ASSET_BASE_URL}/gallery/Dining02.webp`,
+  `${ASSET_BASE_URL}/gallery/Dining03.webp`,
+  `${ASSET_BASE_URL}/gallery/Gym01.webp`,
+  `${ASSET_BASE_URL}/gallery/Gym02.webp`,
+  `${ASSET_BASE_URL}/gallery/RHBathroom01.webp`,
+  `${ASSET_BASE_URL}/gallery/RHBathroom02.webp`,
+  `${ASSET_BASE_URL}/gallery/Riverhuts.webp`,
+  `${ASSET_BASE_URL}/gallery/RiverhutsBR.webp`,
+  `${ASSET_BASE_URL}/gallery/RiverhutsBR01.webp`,
+  `${ASSET_BASE_URL}/gallery/RiverhutsBR02.webp`,
+  `${ASSET_BASE_URL}/gallery/SPA.webp`,
+  `${ASSET_BASE_URL}/gallery/Sauna.webp`,
 ];
 
 export default function GalleryModal({ onClose }: GalleryModalProps) {
