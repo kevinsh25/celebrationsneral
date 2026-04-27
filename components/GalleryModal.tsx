@@ -35,7 +35,6 @@ const GALLERY_IMAGES = [
   '/gallery/RiverhutsBR02.webp',
   '/gallery/SPA.webp',
   '/gallery/Sauna.webp',
-  '/gallery/wmremove-transformed.webp',
 ];
 
 export default function GalleryModal({ onClose }: GalleryModalProps) {
