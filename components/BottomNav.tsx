@@ -31,8 +31,8 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   };
 
   const moreOptions = [
-    { id: 'location-av', label: 'Location AV', icon: Film, type: 'video', url: 'https://youtu.be/6j33K-R4O9I?si=L0Yd7C5sB-sHk541' },
-    { id: 'product-av', label: 'Product Walkthrough AV', icon: Play, type: 'video', url: 'https://youtu.be/O5qSj9M832s?si=yO2U_tK1zF40g1Wp' },
+    { id: 'location-av', label: 'Location AV', icon: Film, type: 'video', url: 'https://customer-65vaf4a8e5p3ufj2.cloudflarestream.com/51767ce61c411d3273b536ba610629f6/iframe?loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-65vaf4a8e5p3ufj2.cloudflarestream.com%2F51767ce61c411d3273b536ba610629f6%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D0s%26height%3D600&controls=false' },
+    { id: 'product-av', label: 'Product Walkthrough AV', icon: Play, type: 'video', url: 'https://customer-65vaf4a8e5p3ufj2.cloudflarestream.com/35d79196785565b0ba2dd5185d080f54/iframe?loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-65vaf4a8e5p3ufj2.cloudflarestream.com%2F35d79196785565b0ba2dd5185d080f54%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D0s%26height%3D600&controls=false' },
   ];
 
   return (
@@ -63,7 +63,7 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
                 <X className="w-5 h-5" />
               </button>
               <iframe
-                src={`${activeVideo.url}?autoplay=1&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1`}
+                src={activeVideo.url}
                 title={activeVideo.title}
                 className="w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
