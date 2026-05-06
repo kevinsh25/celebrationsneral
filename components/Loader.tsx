@@ -71,7 +71,7 @@ export default function Loader({ onComplete }: LoaderProps) {
         <div className="mb-12 relative w-64 h-24 md:w-80 md:h-32">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="Celebrations Neral Logo"
             className="w-full h-full object-contain drop-shadow-sm"
           />

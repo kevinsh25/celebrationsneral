@@ -3,6 +3,8 @@
 import { motion } from 'motion/react';
 import Image from 'next/image';
 
+import { ASSET_BASE_URL } from '@/lib/constants';
+
 interface VirtualTourMenuProps {
   onSelect: (tour: 'clubhouse' | 'riverhuts') => void;
 }
@@ -27,7 +29,7 @@ export default function VirtualTourMenu({ onSelect }: VirtualTourMenuProps) {
         >
           <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-700 z-10" />
           <Image
-            src="/clubhouse.jpg"
+            src={`${ASSET_BASE_URL}/clubhouse.webp`}
             alt="Ravine Club"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -54,7 +56,7 @@ export default function VirtualTourMenu({ onSelect }: VirtualTourMenuProps) {
         >
           <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-700 z-10" />
           <Image
-            src="/riverhuts.jpg"
+            src={`${ASSET_BASE_URL}/riverhuts.webp`}
             alt="River Huts"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"

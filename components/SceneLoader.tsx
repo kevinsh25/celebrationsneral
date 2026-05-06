@@ -28,7 +28,7 @@ export default function SceneLoader() {
         <div className="mb-8 relative w-48 h-12 md:w-56 md:h-16">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logo.png"
+            src="/logo.webp"
             alt="Celebrations Neral Logo"
             className="w-full h-full object-contain opacity-80 drop-shadow-sm"
           />
