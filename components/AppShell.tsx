@@ -13,7 +13,7 @@ import { SCENES, ASSET_BASE_URL } from '@/lib/constants';
 
 export default function AppShell() {
   const [activeTab, setActiveTab] = useState<TabId>('overview');
-  const [activeVirtualTour, setActiveVirtualTour] = useState<'clubhouse' | 'riverhuts' | null>(null);
+  const [activeVirtualTour, setActiveVirtualTour] = useState<'clubhouse' | 'riverhuts' | 'riverparc' | null>(null);
 
   // Reset activeVirtualTour when navigating away from the virtual tour tab
   useEffect(() => {
@@ -47,6 +47,10 @@ export default function AppShell() {
       <PanoFrame
         src={`${ASSET_BASE_URL}/panos/virtualtour/index.html`}
         isActive={activeTab === 'virtual-tour' && activeVirtualTour === 'clubhouse'}
+      />
+      <PanoFrame
+        src={`${ASSET_BASE_URL}/panos/riverparc/index.html`}
+        isActive={activeTab === 'virtual-tour' && activeVirtualTour === 'riverparc'}
       />
       <PanoFrame
         src={`${ASSET_BASE_URL}/panos/riverhuts/index.html`}
