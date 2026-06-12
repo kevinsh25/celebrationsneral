@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
 import { ASSET_BASE_URL } from '@/lib/constants';
+import { getBlur } from '@/lib/blur-data';
 
 interface GalleryModalProps {
   onClose: () => void;
@@ -53,6 +54,19 @@ const GALLERY_ITEMS = [
 
 export default function GalleryModal({ onClose }: GalleryModalProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const thumbStripRef = useRef<HTMLDivElement>(null);
+  const activeThumbRef = useRef<HTMLButtonElement>(null);
+
+  // Auto-scroll the active thumbnail into view
+  useEffect(() => {
+    if (activeThumbRef.current && thumbStripRef.current) {
+      activeThumbRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    }
+  }, [currentIndex]);
 
   const nextImage = () => {
     setCurrentIndex((prev) => (prev + 1) % GALLERY_ITEMS.length);
@@ -71,26 +85,26 @@ export default function GalleryModal({ onClose }: GalleryModalProps) {
     >
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 sm:top-10 sm:right-10 z-[110] p-3 bg-white/10 hover:bg-[#84b145]/40 text-white hover:text-[#a0c052] rounded-full backdrop-blur-md transition-all"
+        className="absolute top-6 right-6 sm:top-10 sm:right-10 z-[110] p-3 bg-white/10 hover:bg-[#274b3b]/40 text-white hover:text-[#7b5a3c] rounded-full backdrop-blur-md transition-all"
       >
         <X className="w-6 h-6" />
       </button>
 
       <button
         onClick={prevImage}
-        className="absolute left-4 sm:left-10 z-[110] p-3 bg-white/10 hover:bg-[#84b145]/40 text-white hover:text-[#a0c052] rounded-full backdrop-blur-md transition-all"
+        className="absolute left-4 sm:left-10 z-[110] p-3 bg-white/10 hover:bg-[#274b3b]/40 text-white hover:text-[#7b5a3c] rounded-full backdrop-blur-md transition-all"
       >
         <ChevronLeft className="w-8 h-8" />
       </button>
 
       <button
         onClick={nextImage}
-        className="absolute right-4 sm:right-10 z-[110] p-3 bg-white/10 hover:bg-[#84b145]/40 text-white hover:text-[#a0c052] rounded-full backdrop-blur-md transition-all"
+        className="absolute right-4 sm:right-10 z-[110] p-3 bg-white/10 hover:bg-[#274b3b]/40 text-white hover:text-[#7b5a3c] rounded-full backdrop-blur-md transition-all"
       >
         <ChevronRight className="w-8 h-8" />
       </button>
 
-      <div className="relative w-full h-full max-w-[90vw] max-h-[85vh] flex items-center justify-center">
+      <div className="relative w-full h-full max-w-[90vw] max-h-[75vh] flex items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -106,23 +120,29 @@ export default function GalleryModal({ onClose }: GalleryModalProps) {
               fill
               sizes="(max-width: 768px) 100vw, 90vw"
               className="object-contain drop-shadow-2xl"
+              placeholder="blur"
+              blurDataURL={getBlur(GALLERY_ITEMS[currentIndex].src)}
               priority
             />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Image Label centered at the bottom, above the dots */}
-      <div className="absolute bottom-20 left-0 right-0 flex justify-center z-[110] pointer-events-none px-4">
+      {/* Label + counter */}
+      <div className="absolute bottom-[132px] left-0 right-0 flex items-center justify-center gap-4 z-[110] pointer-events-none px-4">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.3 }}
-            className="px-6 py-2.5 bg-black/40 backdrop-blur-md rounded-full border border-white/10 shadow-2xl"
+            className="flex items-center gap-3"
           >
+            <span className="text-white/40 text-[10px] tracking-widest tabular-nums">
+              {currentIndex + 1} / {GALLERY_ITEMS.length}
+            </span>
+            <span className="w-px h-3 bg-white/20" />
             <span className="text-white text-xs sm:text-sm tracking-[0.2em] uppercase font-light drop-shadow-md">
               {GALLERY_ITEMS[currentIndex].label}
             </span>
@@ -130,16 +150,37 @@ export default function GalleryModal({ onClose }: GalleryModalProps) {
         </AnimatePresence>
       </div>
 
-      {/* Thumbnails indicator */}
-      <div className="absolute bottom-8 left-0 right-0 flex justify-center flex-wrap gap-2 sm:gap-3 px-4 z-[110] max-w-4xl mx-auto">
-        {GALLERY_ITEMS.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setCurrentIndex(idx)}
-            className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-[#84b145] w-6 sm:w-8' : 'bg-white/30 hover:bg-[#a0c052]/60'}`}
-            aria-label={`Go to slide ${idx + 1}`}
-          />
-        ))}
+      {/* Thumbnail strip */}
+      <div className="absolute bottom-0 left-0 right-0 z-[110] bg-gradient-to-t from-black/80 to-transparent pt-6 pb-4 px-4">
+        <div
+          ref={thumbStripRef}
+          className="flex gap-2 overflow-x-auto scrollbar-hide max-w-5xl mx-auto"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {GALLERY_ITEMS.map((item, idx) => (
+            <button
+              key={idx}
+              ref={idx === currentIndex ? activeThumbRef : null}
+              onClick={() => setCurrentIndex(idx)}
+              aria-label={`Go to ${item.label}`}
+              className={`relative flex-shrink-0 w-16 h-10 sm:w-20 sm:h-13 rounded-md overflow-hidden transition-all duration-300 ${
+                idx === currentIndex
+                  ? 'ring-2 ring-[#274b3b] opacity-100 scale-105'
+                  : 'opacity-40 hover:opacity-75 ring-1 ring-white/10'
+              }`}
+            >
+              <Image
+                src={item.src}
+                alt={item.label}
+                fill
+                sizes="80px"
+                className="object-cover"
+                placeholder="blur"
+                blurDataURL={getBlur(item.src)}
+              />
+            </button>
+          ))}
+        </div>
       </div>
     </motion.div>
   );

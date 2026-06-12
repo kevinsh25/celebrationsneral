@@ -5,15 +5,16 @@ import { motion, AnimatePresence } from 'motion/react';
 import { TabId } from '@/lib/types';
 import { NAV_TABS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
-import { Play, Film, X, Image as ImageIcon } from 'lucide-react';
+import { Play, Film, X, Image as ImageIcon, Home } from 'lucide-react';
 import GalleryModal from './GalleryModal';
 
 interface BottomNavProps {
   activeTab: TabId;
   onTabChange: (tab: TabId) => void;
+  onVillaVisualisation?: () => void;
 }
 
-export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
+export default function BottomNav({ activeTab, onTabChange, onVillaVisualisation }: BottomNavProps) {
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const [activeVideo, setActiveVideo] = useState<{ title: string; url: string } | null>(null);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
   const moreOptions = [
     { id: 'location-av', label: 'Location AV', icon: Film, type: 'video', url: 'https://customer-65vaf4a8e5p3ufj2.cloudflarestream.com/51767ce61c411d3273b536ba610629f6/iframe?loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-65vaf4a8e5p3ufj2.cloudflarestream.com%2F51767ce61c411d3273b536ba610629f6%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D0s%26height%3D600&controls=false' },
     { id: 'product-av', label: 'Product Walkthrough AV', icon: Play, type: 'video', url: 'https://customer-65vaf4a8e5p3ufj2.cloudflarestream.com/35d79196785565b0ba2dd5185d080f54/iframe?loop=true&autoplay=true&poster=https%3A%2F%2Fcustomer-65vaf4a8e5p3ufj2.cloudflarestream.com%2F35d79196785565b0ba2dd5185d080f54%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D0s%26height%3D600&controls=false' },
+    { id: 'villa-visualisation', label: 'Villa Visualisation', icon: Home, type: 'screen' },
   ];
 
   return (
@@ -99,6 +101,8 @@ export default function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
                       onClick={() => {
                         if (option.type === 'video' && option.url) {
                           setActiveVideo({ title: option.label, url: option.url });
+                        } else if (option.type === 'screen' && option.id === 'villa-visualisation') {
+                          onVillaVisualisation?.();
                         }
                         setIsMoreMenuOpen(false);
                       }}

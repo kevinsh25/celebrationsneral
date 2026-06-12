@@ -94,8 +94,13 @@ async function uploadFile(filePath, bucketPath) {
     CacheControl: cacheControl,
   });
 
+  const uploadPromise = s3Client.send(command);
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error("Timeout after 30 seconds")), 30000)
+  );
+
   try {
-    await s3Client.send(command);
+    await Promise.race([uploadPromise, timeoutPromise]);
     uploadedCount++;
     console.log(`Successfully uploaded ${bucketPath}`);
   } catch (err) {

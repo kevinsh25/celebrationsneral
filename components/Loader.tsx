@@ -58,13 +58,13 @@ export default function Loader({ variant = 'initial', onComplete }: LoaderProps)
       {/* Subtle deep background glow matching the new green logo */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <motion.div
-          className={`w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-[#84b145]/[0.05] rounded-full blur-[120px]`}
+          className={`w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-[#274b3b]/[0.05] rounded-full blur-[120px]`}
           animate={{ scale: [0.9, 1.1, 0.9], opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         {isInitial && (
           <motion.div
-            className="absolute w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] bg-[#a0c052]/[0.04] rounded-full blur-[100px] translate-y-10"
+            className="absolute w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] bg-[#7b5a3c]/[0.04] rounded-full blur-[100px] translate-y-10"
             animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.8, 0.3] }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           />
@@ -77,28 +77,23 @@ export default function Loader({ variant = 'initial', onComplete }: LoaderProps)
         animate={isInitial ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 1 }}
         transition={isInitial ? { duration: 1.5, ease: 'easeOut' } : { duration: 0.8 }}
       >
-        <div className={`relative flex items-center justify-center ${isInitial ? 'mb-12 w-64 md:w-80' : 'mb-8 w-48 md:w-56'} aspect-[2.5]`}>
+        <div className={`relative flex items-center justify-center ${isInitial ? 'mb-12 w-64 md:w-80' : 'mb-8 w-48 md:w-56'} aspect-[1957/400]`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/Terra-Scope-2.png"
-            alt="Terra Scope Frame"
-            className="absolute inset-0 w-full h-full object-contain drop-shadow-sm"
-          />
           <motion.img
-            src="/Terra-Scope-1.png"
-            alt="Terra Scope Rhombus"
-            className="absolute inset-0 w-full h-full object-contain drop-shadow-sm"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            style={{ originX: 0.31071, originY: 0.50133 }}
+            src="/terrascope.png"
+            alt="Terra Scope Logo"
+            className="w-full h-full object-contain drop-shadow-sm"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           />
         </div>
 
         <div className={`flex flex-col items-center ${isInitial ? 'gap-6' : 'gap-4'}`}>
-          <div className={`${isInitial ? 'w-64 md:w-80 h-[2px]' : 'w-40 md:w-48 h-[1px]'} bg-[#84b145]/10 relative overflow-hidden rounded-full`}>
+          <div className={`${isInitial ? 'w-64 md:w-80 h-[2px]' : 'w-40 md:w-48 h-[1px]'} bg-[#274b3b]/10 relative overflow-hidden rounded-full`}>
             {isInitial ? (
               <motion.div
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#84b145]/40 via-[#84b145] to-[#a0c052]"
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#274b3b]/40 via-[#274b3b] to-[#7b5a3c]"
                 initial={{ x: '-100%' }}
                 animate={{ x: `${progress - 100}%` }}
                 transition={{ duration: 0.1, ease: 'linear' }}
@@ -106,14 +101,14 @@ export default function Loader({ variant = 'initial', onComplete }: LoaderProps)
               />
             ) : (
               <motion.div
-                className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-[#84b145]/60 to-transparent"
+                className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-transparent via-[#274b3b]/60 to-transparent"
                 animate={{ x: ['-100%', '300%'] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               />
             )}
           </div>
           <motion.p
-            className={`font-sans text-[#84b145] uppercase font-medium ${isInitial ? 'text-[9px] md:text-[10px] tracking-[0.3em] opacity-80' : 'text-[8px] md:text-[9px] tracking-[0.4em] opacity-60'}`}
+            className={`font-sans text-[#274b3b] uppercase font-medium ${isInitial ? 'text-[9px] md:text-[10px] tracking-[0.3em] opacity-80' : 'text-[8px] md:text-[9px] tracking-[0.4em] opacity-60'}`}
             animate={isInitial ? { opacity: progress > 80 ? 0 : 0.8 } : undefined}
             transition={{ duration: 0.5 }}
           >

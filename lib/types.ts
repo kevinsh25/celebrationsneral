@@ -1,6 +1,6 @@
 import { ElementType } from 'react';
 
-export type TabId = 'overview' | 'amenities' | 'viewfrommyplot' | 'virtual-tour' | 'gallery';
+export type TabId = 'overview' | 'amenities' | 'viewfrommyplot' | 'virtual-tour' | 'gallery' | 'villa-visualisation';
 
 export interface SceneConfig {
   id: TabId;
